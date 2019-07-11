@@ -1,0 +1,14 @@
+.droppable {
+  height: 100%;
+  width: 100%;
+  border: 1px dashed #333;
+  background-color: #EEE;
+}
+
+.droppable > p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit- transform: translateY(-50%) translateX(-50%);
+}

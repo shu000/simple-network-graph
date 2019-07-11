@@ -1,0 +1,60 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="./lib/vis.min.css" rel="stylesheet" type="text/css" />
+  <link href="./css/index.css" rel="stylesheet" type="text/css" />
+  <link href="./css/Droppable.css" rel="stylesheet" type="text/css" />
+
+  <title>Simple Network Builder</title>
+</head>
+<body>
+  <div id="droppable" class="droppable">
+    <p>Drop CSV here!</p>
+  </div>
+  <div id="mynetwork" style="width: 100%; height: 100%;"></div>
+</body>
+
+<script type="text/javascript" src="./lib/vis.min.js"></script>
+<script type="text/javascript" src="./js/NetworkFactory.js"></script>
+<script type="text/javascript" src="./js/Droppable.js"></script>
+<script type="text/javascript" src="./js/CsvReader.js"></script>
+<script>
+  const droppableArea = document.getElementById("droppable")
+  const droppable = new Droppable(droppableArea);
+  droppable.addDropdEvent(CsvReader.read);
+
+  const nodes = new vis.DataSet([
+    {id: 1, label: '大阪', value: 90, scaling: { label: { enabled: true }}},
+    {id: 2, label: '観光', value: 50, scaling: { label: { enabled: true }}},
+    {id: 3, label: 'お土産', value: 20, scaling: { label: { enabled: true }}},
+    {id: 4, label: 'なおみ', value: 20, scaling: { label: { enabled: true }}},
+    {id: 5, label: 'おすすめ', value: 20, scaling: { label: { enabled: true }}},
+    {id: 6, label: 'まとめ', value: 20, scaling: { label: { enabled: true }}},
+    {id: 7, label: '通天閣', value: 10, scaling: { label: { enabled: true }}},
+    {id: 8, label: '大阪城', value: 10, scaling: { label: { enabled: true }}},
+    {id: 9, label: 'ウィンブルドン', value: 10, scaling: { label: { enabled: true }}},
+    {id: 10, label: '国籍', value: 10, scaling: { label: { enabled: true }}}
+  ]);
+
+  const edges = new vis.DataSet([
+    {from: 1, to: 2},
+    {from: 1, to: 3},
+    {from: 1, to: 4},
+    {from: 2, to: 3},
+    {from: 2, to: 5},
+    {from: 2, to: 6},
+    {from: 2, to: 7},
+    {from: 2, to: 8},
+    {from: 3, to: 5},
+    {from: 3, to: 6},
+    {from: 4, to: 9},
+    {from: 4, to: 10},
+  ]);
+
+  const container = document.getElementById("mynetwork");
+  NetworkFactory.create(container, nodes, edges);
+</script>
+
+</html>
