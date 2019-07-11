@@ -19,11 +19,14 @@
 <script type="text/javascript" src="./lib/vis.min.js"></script>
 <script type="text/javascript" src="./js/NetworkFactory.js"></script>
 <script type="text/javascript" src="./js/Droppable.js"></script>
-<script type="text/javascript" src="./js/CsvReader.js"></script>
+<script type="text/javascript" src="./js/Keywords.js"></script>
 <script>
+  const keywords = new Keywords();
+
   const droppableArea = document.getElementById("droppable")
   const droppable = new Droppable(droppableArea);
-  droppable.addDropdEvent(CsvReader.read);
+
+  droppable.on("drop", (csv) => { console.log(csv); });
 
   const nodes = new vis.DataSet([
     {id: 1, label: '大阪', value: 90, scaling: { label: { enabled: true }}},
