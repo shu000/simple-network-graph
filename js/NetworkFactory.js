@@ -1,8 +1,16 @@
 const NetworkFactory = (function() {
 
   class _NetworkFactory {
+    /**
+     * [create description]
+     * @param  {Object} container [description]
+     * @param  {Object} nodes     [description]
+     * @param  {Object} edges     [description]
+     * @return {Object}           [description]
+     */
     create(container, nodes, edges) {
-      const data = { nodes: nodes,
+      const data = {
+        nodes: nodes,
         edges: edges
       };
 
@@ -15,7 +23,7 @@ const NetworkFactory = (function() {
             border: "#CCC",
             background: "#AAC4FC",
             highlight: {
-            background: "#0E0791",
+              background: "#0E0791",
             }
           }
         }
