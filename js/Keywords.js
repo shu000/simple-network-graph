@@ -24,7 +24,6 @@ class Keywords {
     this.keywords = this.lines2keywords(linesWithNoHeader);
 
     const nodesAndEdges = this.keywords2nodeAndEdges(this.keywords);
-    console.log(nodesAndEdges);
     this.nodes = nodesAndEdges.nodes;
     this.edges = nodesAndEdges.edges;
   };
@@ -54,9 +53,11 @@ class Keywords {
   lines2keywords(lines) {
     const keywords = {};
     lines.map(line => {
+      if ( line === "" ) return;
+
       const splitted = line.split(",");
       const keyword = splitted[0];
-      const numberOfOccurences = 0 + splitted[1];
+      const numberOfOccurences = parseInt(splitted[1]);
 
       if (keywords[keyword] > 0) {
         keywords[keyword] += numberOfOccurences;
@@ -74,6 +75,7 @@ class Keywords {
    * @return {[type]}          [description]
    */
   keywords2nodeAndEdges(keywords) {
+    const dictLabel2Id = {};
     const data = {
       nodes: [],
       edges: []
@@ -84,22 +86,22 @@ class Keywords {
       //const value = keywords[keyword];// TODO parcentagenige
       const value = 10;
 
-      const allWords = [];
       words.map((word, i) => {
         const id = data.nodes.length;
 
-        if (allWords.indexOf(word) < 0) {
+        // 新出ノードのみ追加
+        if ( !(word in dictLabel2Id) ) {
           data.nodes.push(createNode(id, word, value));
-          allWords.push(word);
-        }
-        else {
-          console.log("Hit");
-          console.log(word);
+          dictLabel2Id[word] = id;
         }
 
-        // 他の単語が存在するときは i > 0
-        if (i > 0) {
-          data.edges.push(createEdge(id - 1, id));
+        // 新出エッジのみ追加
+        if ( i > 0 ) {
+          const from = dictLabel2Id[word];
+          const to = dictLabel2Id[words[i - 1]];
+          if ( !existsSameEdge(data.edges, from, to) ) {
+            data.edges.push(createEdge(from, to));
+          }
         }
       });
     }
@@ -124,4 +126,15 @@ function createEdge(from, to) {
     from: from,
     to: to
   };
+}
+
+// TODO: ループ重すぎでしょこれ
+function existsSameEdge(edges, id1, id2) {
+  for (let edge of edges) {
+    if ((edge.from === id1 && edge.to === id2) ||
+        (edge.to === id1 && edge.from === id2)) {
+      return true;
+    }
+  }
+  return false;
 }
