@@ -21,13 +21,27 @@
 <script type="text/javascript" src="./js/Droppable.js"></script>
 <script type="text/javascript" src="./js/Keywords.js"></script>
 <script>
-  const keywords = new Keywords();
-
   const droppableArea = document.getElementById("droppable")
   const droppable = new Droppable(droppableArea);
 
-  droppable.on("drop", (csv) => { console.log(csv); });
+  //let keywords = new Keywords();
+  //droppable.on("drop", (csv) => { keywords.initByCSV(csv) });
+  droppable.onDrop()
+    .then((csv) => {
+      const keywords = new Keywords(csv);
 
+      const nodes = new vis.DataSet(keywords.nodes);
+      const edges = new vis.DataSet(keywords.edges);
+
+      const container = document.getElementById("mynetwork");
+      const network = NetworkFactory.create(container);
+      network.setData({
+        nodes: nodes,
+        edges: edges
+      });
+    });
+
+/*
   const nodes = new vis.DataSet([
     {id: 1, label: '大阪', value: 90, scaling: { label: { enabled: true }}},
     {id: 2, label: '観光', value: 50, scaling: { label: { enabled: true }}},
@@ -58,6 +72,7 @@
 
   const container = document.getElementById("mynetwork");
   NetworkFactory.create(container, nodes, edges);
+  */
 </script>
 
 </html>

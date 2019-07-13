@@ -2,7 +2,11 @@ class Keywords {
 
   constructor(csv) {
     if (!csv) return;
+
     this.keywords = {};
+    this.nodes = [];
+    this.edges = [];
+
     this.initByCSV(csv);
   }
 
@@ -13,24 +17,16 @@ class Keywords {
    */
   initByCSV = (csv) => {
     if (!csv) return;
-    if (!this.keywords) this.keywords = {};
 
     const lines = csv.split("\n");
     const linesWithNoHeader = this.throwAwayHeader(lines);
 
-    linesWithNoHeader.map(line => {
-      const splitted = line.split(",");
-      const keyword = splitted[0];
-      const numberOfOccurences = 0 + splitted[1];
+    this.keywords = this.lines2keywords(linesWithNoHeader);
 
-      if (this.keywords[keyword] > 0) {
-        this.keywords[keyword] += numberOfOccurences;
-      } else {
-        this.keywords[keyword] = numberOfOccurences;
-      }
-    });
-
-    console.log(this.keywords);
+    const nodesAndEdges = this.keywords2nodeAndEdges(this.keywords);
+    console.log(nodesAndEdges);
+    this.nodes = nodesAndEdges.nodes;
+    this.edges = nodesAndEdges.edges;
   };
 
   /**
@@ -49,4 +45,83 @@ class Keywords {
 
     return lines;
   }
+
+  /**
+   * [lines2keywords description]
+   * @param  {Array.<string>} lines [description]
+   * @return {Object}       [description]
+   */
+  lines2keywords(lines) {
+    const keywords = {};
+    lines.map(line => {
+      const splitted = line.split(",");
+      const keyword = splitted[0];
+      const numberOfOccurences = 0 + splitted[1];
+
+      if (keywords[keyword] > 0) {
+        keywords[keyword] += numberOfOccurences;
+      } else {
+        keywords[keyword] = numberOfOccurences;
+      }
+    });
+
+    return keywords;
+  }
+
+  /**
+   * [keywords2nodeAndEdges description]
+   * @param  {[type]} keywords [description]
+   * @return {[type]}          [description]
+   */
+  keywords2nodeAndEdges(keywords) {
+    const data = {
+      nodes: [],
+      edges: []
+    };
+
+    for (let keyword of Object.keys(keywords)) {
+      const words = keyword.replace("　", " ").split(" ");
+      //const value = keywords[keyword];// TODO parcentagenige
+      const value = 10;
+
+      const allWords = [];
+      words.map((word, i) => {
+        const id = data.nodes.length;
+
+        if (allWords.indexOf(word) < 0) {
+          data.nodes.push(createNode(id, word, value));
+          allWords.push(word);
+        }
+        else {
+          console.log("Hit");
+          console.log(word);
+        }
+
+        // 他の単語が存在するときは i > 0
+        if (i > 0) {
+          data.edges.push(createEdge(id - 1, id));
+        }
+      });
+    }
+
+    return data;
+  }
 };
+
+function createNode(id, label, value) {
+  return {
+    id: id,
+    label: label,
+    value: value,
+    scaling: {
+      label: { enabled: true }
+    }
+  };
+}
+
+function createEdge(from, to) {
+  return {
+    from: from,
+    to: to
+  };
+}

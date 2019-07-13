@@ -8,12 +8,7 @@ const NetworkFactory = (function() {
      * @param  {Object} edges     [description]
      * @return {Object}           [description]
      */
-    create(container, nodes, edges) {
-      const data = {
-        nodes: nodes,
-        edges: edges
-      };
-
+    create(container) {
       const options = {
         nodes: {
           shape: "dot",
@@ -26,10 +21,13 @@ const NetworkFactory = (function() {
               background: "#0E0791",
             }
           }
+        },
+        layout: {
+          improvedLayout: false
         }
       };
 
-      return new vis.Network(container, data, options);
+      return new vis.Network(container, {}, options);
     }
   };
 
