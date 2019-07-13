@@ -1,0 +1,22 @@
+{
+  "name": "simple-network-graph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shu000/simple-network-graph.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shu000/simple-network-graph/issues"
+  },
+  "homepage": "https://github.com/shu000/simple-network-graph#readme",
+  "devDependencies": {
+    "mocha": "^6.1.4"
+  }
+}
