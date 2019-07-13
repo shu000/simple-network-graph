@@ -11,6 +11,7 @@
   <title>Simple Network Builder</title>
 </head>
 <body>
+  <!-- TODO: ダサい -->
   <div id="loading" class="hide">
     <div class="loading"></div>
     <div id="loading-text" class="loading-progress"></div>
@@ -45,14 +46,15 @@
       });
 
       network.on("stabilizationProgress", (obj) => {
-        const done = obj.iterations / 10;
-        const total = obj.total / 10;
-        const text = done + "／" + total;
-        document.getElementById("loading-text").innerHTML = text;
+        const percentage = obj.iterations / 10 + " %";
+        document.getElementById("loading-text").innerHTML = percentage;
       });
 
       network.on("stabilizationIterationsDone", () => {
         document.getElementById("loading").classList.add("hide");
+        network.off("startStabilizing");
+        network.off("stabilizationProgress");
+        network.off("stabilizationIterationsDone");
       });
 
       network.setData({
