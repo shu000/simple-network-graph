@@ -21,11 +21,11 @@ class Keywords {
     const lines = csv.split("\n");
     const linesWithNoHeader = this.throwAwayHeader(lines);
 
-    this.keywords = this.lines2keywords(linesWithNoHeader);
-    console.log("lines2keywords");
+    console.log(this.lines2wordsOrderByOccurences(linesWithNoHeader));
 
-    const nodesAndEdges = this.keywords2nodeAndEdges(this.keywords);
-    console.log("keywords2nodeAndEdges");
+    const keywords = this.lines2keywords(linesWithNoHeader);
+    const nodesAndEdges = this.keywords2nodeAndEdges(keywords);
+
     this.nodes = nodesAndEdges.nodes;
     this.edges = nodesAndEdges.edges;
   };
@@ -69,6 +69,38 @@ class Keywords {
     });
 
     return keywords;
+  }
+
+  lines2wordsOrderByOccurences(lines) {
+    const words = [];
+    lines.map(line => {
+      if ( line === "" ) return;
+
+      const splitted = line.split(",");
+      const keyword = splitted[0];
+      const wordsInKeyword = keyword.replace("　", " ").split(" ");
+      const numberOfOccurences = parseInt(splitted[1]);
+
+      wordsInKeyword.map(word => {
+        // 新出単語ならば追加
+        // 既出単語なら出現回数を加算
+        const index = words.findIndex(obj => obj.word === word);
+        if (index < 0) {
+          words.push({
+            word: word,
+            occurences: numberOfOccurences
+          });
+        } else {
+          words[index].occurences += numberOfOccurences;
+        }
+      });
+    });
+
+    // 出現回数降順に並び替えてから返す
+    return words.sort((a, b) => {
+      if (a.occurences > b.occurences) return -1;
+      else return 1;
+    });
   }
 
   /**
