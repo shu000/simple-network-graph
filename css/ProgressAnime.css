@@ -1,0 +1,25 @@
+.progress {
+  width:100%;
+  height:5px;
+  background:#CCC;
+}
+
+/* ラインのアニメーション時の色と動き */
+.progress-fullwidth .progress-expand {
+    width:100%;
+    height:5px;
+    margin:0;
+    background:#17CDDD;
+    position:absolute;
+    -moz-animation:fullexpand 5s ease-out;
+    -webkit-animation:fullexpand 5s ease-out;
+}
+
+@-moz-keyframes fullexpand {
+    0%  { width:0px;}
+    100%{ width:100%;}
+}
+@-webkit-keyframes fullexpand {
+    0%  { width:0px;}
+    100%{ width:100%;}
+}

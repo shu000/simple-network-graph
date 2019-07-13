@@ -1,0 +1,30 @@
+.loading {
+  /* 中央寄せ */
+  margin: 0 auto;
+
+  /* 色　形　サイズ */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 10px solid #AAC4FC;
+  border-right-color: transparent;
+
+  /* 回転アニメーション */
+  animation: spin 1s linear infinite;
+  -webkit- animation: spin 1s linear infinite;
+}
+
+.loading-progress {
+  /* 中央寄せ */
+  margin: 0 auto;
+  width: 100px;
+  height: 10px;
+  color: #0E0791;
+}
+
+@keyframes spin
+{
+  0%   { transform: rotate(0deg);   opacity: 0.3; }
+  50%  { transform: rotate(180deg); opacity: 1.0; }
+  100% { transform: rotate(360deg); opacity: 0.3; }
+}

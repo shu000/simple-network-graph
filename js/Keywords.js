@@ -22,8 +22,10 @@ class Keywords {
     const linesWithNoHeader = this.throwAwayHeader(lines);
 
     this.keywords = this.lines2keywords(linesWithNoHeader);
+    console.log("lines2keywords");
 
     const nodesAndEdges = this.keywords2nodeAndEdges(this.keywords);
+    console.log("keywords2nodeAndEdges");
     this.nodes = nodesAndEdges.nodes;
     this.edges = nodesAndEdges.edges;
   };

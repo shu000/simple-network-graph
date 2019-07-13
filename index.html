@@ -6,10 +6,16 @@
   <link href="./lib/vis.min.css" rel="stylesheet" type="text/css" />
   <link href="./index.css" rel="stylesheet" type="text/css" />
   <link href="./css/Droppable.css" rel="stylesheet" type="text/css" />
+  <link href="./css/LoadingAnime.css" rel="stylesheet" type="text/css" />
 
   <title>Simple Network Builder</title>
 </head>
 <body>
+  <div id="loading" class="hide">
+    <div class="loading"></div>
+    <div id="loading-text" class="loading-progress"></div>
+  </div>
+
   <div id="droppable" class="droppable">
     <p>Drop CSV here!</p>
   </div>
@@ -21,7 +27,7 @@
 <script type="text/javascript" src="./js/Droppable.js"></script>
 <script type="text/javascript" src="./js/Keywords.js"></script>
 <script>
-  const droppableArea = document.getElementById("droppable")
+  const droppableArea = document.getElementById("droppable");
   const droppable = new Droppable(droppableArea);
 
   droppable.onDrop()
@@ -33,6 +39,22 @@
 
       const container = document.getElementById("mynetwork");
       const network = NetworkFactory.create(container);
+
+      network.on("startStabilizing", (obj) => {
+        document.getElementById("loading").classList.remove("hide");
+      });
+
+      network.on("stabilizationProgress", (obj) => {
+        const done = obj.iterations / 10;
+        const total = obj.total / 10;
+        const text = done + "／" + total;
+        document.getElementById("loading-text").innerHTML = text;
+      });
+
+      network.on("stabilizationIterationsDone", () => {
+        document.getElementById("loading").classList.add("hide");
+      });
+
       network.setData({
         nodes: nodes,
         edges: edges
