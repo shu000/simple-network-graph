@@ -24,6 +24,25 @@ export default class Words {
   }
 
   /**
+   * return Array as Vis.js's Nodes
+   * @return {Array.<Object>} input to Vis.js's setDataSet()
+   */
+  getAsVisNodes() {
+    const nodes = [];
+    this.words.map(word => {
+      nodes.push({
+        id: word.wordID,
+        label: word.text,
+        value: word.occurence,
+        scaling: {
+          label: { enabled: true }
+        }
+      });
+    });
+    return nodes;
+  }
+
+  /**
    * return wordID of text
    * @param  {string} text if same as it, return wordID
    * @return {number}      if found then wordID, else -1
