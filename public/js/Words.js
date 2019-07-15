@@ -4,6 +4,37 @@ export default class Words {
   }
 
   /**
+   * return this.words
+   * @return {Array.<Object>} this.words
+   */
+  getAll() {
+    return this.words;
+  }
+
+  /**
+   * return this.words
+   * @return {Array.<Object>} this.words
+   */
+  getAllOrderByOccurence() {
+    return this.words.sort((a, b) => {
+      if (a.occurence > b.occurence) return -1
+      else if (a.occurence < b.occurence) return 1
+      else return 0;
+    });
+  }
+
+  /**
+   * return wordID of text
+   * @param  {string} text if same as it, return wordID
+   * @return {number}      if found then wordID, else -1
+   */
+  getID(text) {
+    const found = this.words.find(obj => obj.text === text);
+    if (found === undefined) return -1;
+    else return found.wordID;
+  }
+
+  /**
    * append a word to this.words as Object.
    * if the word already exists in this.words, just add occurence.
    * @param  {string} text      word's surface.
@@ -22,11 +53,13 @@ export default class Words {
     }
   }
 
-  /**
-   * return this.words
-   * @return {Array.<Object>} this.words
-   */
-  get() {
-    return this.words;
+  initByKeywords(keywords) {
+    keywords.map(keyword => {
+      const texts = keyword.keyword.replace("　", " ").split(" ");
+      const occurence = keyword.occurence;
+      texts.map(text => {
+        this.append(text, occurence);
+      });
+    });
   }
 }
