@@ -87,4 +87,19 @@ describe("Words", function() {
       ]);
     });
   });
+
+  describe("#getAsVisNodes()", function() {
+    it("should return Array as inputs to Vis.js's setDataSet()", function() {
+      const words = new Words();
+      words.append("StarPlutinum", 999);
+      assert.deepStrictEqual(words.getAsVisNodes(), [{
+        id: 0,
+        label: "StarPlutinum",
+        value: 999,
+        scaling: {
+          label: { enabled: true }
+        }
+      }]);
+    });
+  });
 });
