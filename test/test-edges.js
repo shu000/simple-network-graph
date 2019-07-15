@@ -17,6 +17,22 @@ describe("Edges", function() {
     });
   });
 
+  describe("#getTopEdges", function(){
+    it("should return edges having most big co-occurence", function() {
+      const edges = new Edges();
+      edges.append(1, 30, 30);
+      edges.append(1, 10, 10);
+      edges.append(1, 40, 40);
+      edges.append(9, 99, 99);
+      edges.append(1, 20, 20);
+
+      assert.deepStrictEqual(edges.getTopEdges(1, 2), [
+        {edgeID: 2, wordIDs: [1, 40], coOccurence: 40},
+        {edgeID: 0, wordIDs: [1, 30], coOccurence: 30}
+      ]);
+    });
+  });
+
   describe("#append()", function() {
     it("should append args when not exists same edge", function() {
       const edges = new Edges();
