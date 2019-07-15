@@ -1,6 +1,6 @@
 // mocha --require babel-core/register ./test/test-keywords.js
 const assert = require("assert");
-const Keywords = require("../public/js/Keywords_new").default;
+const Keywords = require("../public/js/Keywords").default;
 
 describe("Keywords", function() {
 
@@ -17,5 +17,5 @@ describe("Keywords", function() {
       ]);
     });
   });
-  
+
 });
