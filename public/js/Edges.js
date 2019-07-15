@@ -1,6 +1,7 @@
 export default class Edges {
   constructor() {
     this.edges = [];
+    this.top10edges = {};
   }
 
   /**
@@ -9,6 +10,23 @@ export default class Edges {
    */
   getAll() {
     return this.edges;
+  }
+
+  /**
+   *
+   * @param  {[type]} wordID [description]
+   * @param  {[type]} count  [description]
+   * @return {[type]}        [description]
+   */
+  getTopEdges(wordID, count) {
+    return this.edges
+      .filter(edge => edge.wordIDs.includes(wordID))
+      .sort((a, b) => {
+        if (a.coOccurence > b.coOccurence) return -1;
+        else if (a.coOccurence < b.coOccurence) return 1;
+        else return 0;
+      })
+      .slice(0, count);
   }
 
   /**
