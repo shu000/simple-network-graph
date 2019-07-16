@@ -1,6 +1,6 @@
 // mocha --require babel-core/register ./test/test-words.js
 const assert = require("assert");
-const Words = require("../public/js/Words");
+const Words = require("../src/Words");
 
 describe("Words", function() {
   describe("#getAll()", function() {

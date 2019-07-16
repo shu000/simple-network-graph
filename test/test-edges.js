@@ -1,7 +1,7 @@
 // mocha --require babel-core/register ./test/test-edges.js
 const assert = require("assert");
-const Words = require("../public/js/Words");
-const Edges = require("../public/js/Edges");
+const Words = require("../src/Words");
+const Edges = require("../src/Edges");
 
 describe("Edges", function() {
 
