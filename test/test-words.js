@@ -1,8 +1,6 @@
 // mocha --require babel-core/register ./test/test-words.js
-
 const assert = require("assert");
-// TODO: この require したオブジェクトの default プロパティ取るのって正しくない気がする。。
-const Words = require("../public/js/Words").default;
+const Words = require("../public/js/Words");
 
 describe("Words", function() {
   describe("#getAll()", function() {

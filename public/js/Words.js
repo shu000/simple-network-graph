@@ -1,4 +1,4 @@
-export default class Words {
+class Words {
   constructor() {
     this.words = [];
   }
@@ -82,3 +82,5 @@ export default class Words {
     });
   }
 }
+
+module.exports = Words;

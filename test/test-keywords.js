@@ -1,6 +1,6 @@
 // mocha --require babel-core/register ./test/test-keywords.js
 const assert = require("assert");
-const Keywords = require("../public/js/Keywords").default;
+const Keywords = require("../public/js/Keywords");
 
 describe("Keywords", function() {
 

@@ -1,4 +1,4 @@
-export default class Edges {
+class Edges {
   constructor() {
     this.edges = [];
     this.top10edges = {};
@@ -113,3 +113,5 @@ function combination(array) {
     }
   }
 }
+
+module.exports = Edges;

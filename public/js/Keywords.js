@@ -1,4 +1,4 @@
-export default class Keywords {
+class Keywords {
   constructor() {
     this.keywords = [];
   }
@@ -41,3 +41,5 @@ function throwAwayHeader(lines) {
 
   return lines;
 }
+
+module.exports = Keywords;
