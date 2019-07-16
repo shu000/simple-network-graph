@@ -9,18 +9,20 @@ class Keywords {
 
   initByCSV(csv) {
     const lines = throwAwayHeader(csv.split("\n"));
-    this.keywords = lines.map(line => {
-      if ( line === "" ) return;
+    this.keywords = lines
+      .map(line => {
+        if ( line === "" ) return;
 
-      const splitted = line.split(",");
-      const keyword = splitted[0];
-      const occurence = parseInt(splitted[1]);
+        const splitted = line.split(",");
+        const keyword = splitted[0];
+        const occurence = parseInt(splitted[1]);
 
-      return {
-        keyword: keyword,
-        occurence: occurence
-      };
-    });
+        return {
+          keyword: keyword,
+          occurence: occurence
+        };
+      })
+      .filter(x => x);
   }
 
 }
