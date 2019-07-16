@@ -6,12 +6,12 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 10px solid #AAC4FC;
+  border: 5px solid #AAC4FC;
   border-right-color: transparent;
 
   /* 回転アニメーション */
-  animation: spin 1s linear infinite;
-  -webkit- animation: spin 1s linear infinite;
+  animation: spin 0.5s linear infinite;
+  -webkit- animation: spin 0.5s linear infinite;
 }
 
 .loading-progress {
@@ -24,7 +24,7 @@
 
 @keyframes spin
 {
-  0%   { transform: rotate(0deg);   opacity: 0.3; }
-  50%  { transform: rotate(180deg); opacity: 1.0; }
-  100% { transform: rotate(360deg); opacity: 0.3; }
+  0%   { transform: rotate(0deg);   }
+  50%  { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
 }
