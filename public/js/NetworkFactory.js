@@ -34,3 +34,5 @@ const NetworkFactory = (function() {
   return new _NetworkFactory();
 
 })();
+
+module.exports = NetworkFactory;

@@ -18,7 +18,7 @@ class Droppable {
     this.droppableArea.setAttribute("style", "display: none;");
   }
 
-  onDrop = () => {
+  onDrop() {
     return new Promise((resolve, reject) => {
   		this.droppableArea.addEventListener("drop", (e) => {
         this.hide();
@@ -55,3 +55,5 @@ const cancelEvent = (e) => {
 	e.stopPropagation();
 	return false;
 };
+
+module.exports = Droppable;

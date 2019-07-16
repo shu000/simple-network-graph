@@ -24,23 +24,9 @@
 </body>
 
 <script type="text/javascript" src="./lib/vis.min.js"></script>
-<script type="text/javascript" src="./js/NetworkFactory.js"></script>
-<script type="text/javascript" src="./js/Droppable.js"></script>
-<script type="text/javascript" src="./js/Keywords.js"></script>
+<script type="text/javascript" src="../dist/bundle.js"></script>
 <script>
-  const droppableArea = document.getElementById("droppable");
-  const droppable = new Droppable(droppableArea);
-
-  droppable.onDrop()
-    .then((csv) => {
-      const keywords = new Keywords(csv);
-
-      const nodes = new vis.DataSet(keywords.nodes);
-      const edges = new vis.DataSet(keywords.edges);
-
-      const container = document.getElementById("mynetwork");
-      const network = NetworkFactory.create(container);
-
+      /*
       network.on("startStabilizing", (obj) => {
         document.getElementById("loading").classList.remove("hide");
       });
@@ -56,12 +42,7 @@
         network.off("stabilizationProgress");
         network.off("stabilizationIterationsDone");
       });
-
-      network.setData({
-        nodes: nodes,
-        edges: edges
-      });
-    });
+      */
 </script>
 
 </html>
