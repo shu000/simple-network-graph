@@ -17,7 +17,7 @@
 .loading-progress {
   /* 中央寄せ */
   margin: 0 auto;
-  width: 100px;
+  width: 40px;
   height: 10px;
   color: #0E0791;
 }

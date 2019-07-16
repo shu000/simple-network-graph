@@ -14,9 +14,13 @@ class App {
     this.visEdges = [];
   }
 
-  init() {
+  /**
+   * This application's Main Module
+   */
+  run() {
     const dropArea = document.getElementById(DROP_AREA_ID);
     const droppable = new Droppable(dropArea);
+
     droppable.onDrop().then((csv) => {
       const data = this.csv2data(csv);
       this.showNetworkGraph(data);
@@ -26,6 +30,7 @@ class App {
   showNetworkGraph(data) {
     const container = document.getElementById(NETWORK_AREA_ID);
     const network = NetworkFactory.create(container);
+    this.addLoadingEvents(network); // TODO: wrap into NetworkFactory
     network.setData(data);
   }
 
@@ -45,7 +50,24 @@ class App {
     };
   }
 
+  addLoadingEvents(network) {
+    network.on("startStabilizing", (obj) => {
+      document.getElementById("loading").classList.remove("hide");
+    });
+
+    network.on("stabilizationProgress", (obj) => {
+      const percentage = obj.iterations / 10 + " %";
+      document.getElementById("loading-text").innerHTML = percentage;
+    });
+
+    network.on("stabilizationIterationsDone", () => {
+      document.getElementById("loading").classList.add("hide");
+      network.off("startStabilizing");
+      network.off("stabilizationProgress");
+      network.off("stabilizationIterationsDone");
+    });
+  }
 }
 
 const app = new App();
-app.init();
+app.run();
