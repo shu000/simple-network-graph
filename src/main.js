@@ -33,8 +33,6 @@ class App {
     const keywords = new Keywords();
     keywords.initByCSV(csv)
 
-    console.log(keywords.getAll());
-
     const words = new Words();
     words.initByKeywords(keywords.getAll());
 

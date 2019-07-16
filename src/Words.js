@@ -73,7 +73,6 @@ class Words {
   }
 
   initByKeywords(keywords) {
-    console.log(keywords);
     keywords.map(keyword => {
       const texts = keyword.keyword.replace("　", " ").split(" ");
       const occurence = keyword.occurence;
