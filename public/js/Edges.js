@@ -95,22 +95,15 @@ class Edges {
  * @return {Array}       combinations
  */
 function combination(array) {
-  const combinationed = [];
-  if (array.length > 1) _comb(combinationed, array);
-  return combinationed;
-
-  function _comb(combinationed, array) {
-    if (array.length === 2) {
-      combinationed.push(array);
-    }
-    else {
-      const head = array.shift();
-      array.map(item => {
-        combinationed.push([head, item]);
-      })
-
-      _comb(combinationed, array);
-    }
+  if (array.length === 1) {
+    return [];
+  }
+  else if (array.length === 2) {
+    return [array];
+  }
+  else {
+    const head = array.shift();
+    return array.map(item => [head, item]).concat(combination(array));
   }
 }
 
