@@ -20,3 +20,12 @@ code {
 .hide {
   display: none;
 }
+
+.container {
+  display: flex;
+}
+
+#ranking {
+  padding: 0 0 0 20px;
+  border-left: solid 1px #CCC;
+}

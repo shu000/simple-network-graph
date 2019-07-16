@@ -5,13 +5,15 @@ const Droppable = require("./Droppable");
 const NetworkFactory = require("./NetworkFactory");
 
 const DROP_AREA_ID = "droppable";
-const NETWORK_AREA_ID = "mynetwork";
+const NETWORK_AREA_ID = "network";
+const RANKING_AREA_ID = "ranking";
 
 class App {
 
   constructor() {
-    this.visNodes = [];
-    this.visEdges = [];
+    this.keywords;
+    this.words;
+    this.edges;
   }
 
   /**
@@ -22,32 +24,42 @@ class App {
     const droppable = new Droppable(dropArea);
 
     droppable.onDrop().then((csv) => {
-      const data = this.csv2data(csv);
-      this.showNetworkGraph(data);
+      this.read(csv);
+      this.showWordRanking()
+      this.showNetworkGraph();
     });
   }
 
-  showNetworkGraph(data) {
+  showWordRanking() {
+    const rankingArea = document.getElementById(RANKING_AREA_ID);
+    this.words.getAllOrderByOccurence().map(word => {
+      const p = document.createElement("p")
+      p.innerHTML = word.text;
+      rankingArea.appendChild(p);
+    });
+  }
+
+  showNetworkGraph() {
     const container = document.getElementById(NETWORK_AREA_ID);
     const network = NetworkFactory.create(container);
     this.addLoadingEvents(network); // TODO: wrap into NetworkFactory
+
+    const data = {
+      nodes: new vis.DataSet(this.words.getAsVisNodes()),
+      edges: new vis.DataSet(this.edges.getAsVisEdges())
+    };
     network.setData(data);
   }
 
-  csv2data(csv) {
-    const keywords = new Keywords();
-    keywords.initByCSV(csv)
+  read(csv) {
+    this.keywords = new Keywords();
+    this.keywords.initByCSV(csv)
 
-    const words = new Words();
-    words.initByKeywords(keywords.getAll());
+    this.words = new Words();
+    this.words.initByKeywords(this.keywords.getAll());
 
-    const edges = new Edges();
-    edges.initByKeywords(keywords.getAll(), words);
-
-    return {
-      nodes: words.getAsVisNodes(),
-      edges: edges.getAsVisEdges()
-    };
+    this.edges = new Edges();
+    this.edges.initByKeywords(this.keywords.getAll(), this.words);
   }
 
   addLoadingEvents(network) {
