@@ -1,24 +1,26 @@
 .loading {
-  /* 中央寄せ */
-  margin: 0 auto;
-
-  /* 色　形　サイズ */
   width: 30px;
   height: 30px;
   border-radius: 50%;
   border: 5px solid #AAC4FC;
   border-right-color: transparent;
-
-  /* 回転アニメーション */
   animation: spin 0.5s linear infinite;
   -webkit- animation: spin 0.5s linear infinite;
 }
 
-.loading-progress {
-  /* 中央寄せ */
-  margin: 0 auto;
+.loading-container {
+  position: absolute;
   width: 40px;
-  height: 10px;
+  height: 30px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.loading-progress {
+  display: inline-block;
   color: #0E0791;
 }
 

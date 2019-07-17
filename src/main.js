@@ -73,6 +73,7 @@ class App {
     });
 
     network.on("stabilizationIterationsDone", () => {
+      document.getElementById("results").classList.remove("hide");
       document.getElementById("loading").classList.add("hide");
       network.off("startStabilizing");
       network.off("stabilizationProgress");
