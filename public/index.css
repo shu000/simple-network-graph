@@ -18,10 +18,16 @@ code {
 }
 
 .container {
+  display: flex;
   height: 100%;
   width: 100%;
-  display: flex;
   flex-direction: row;
+}
+
+#droppable {
+  height: 100%;
+  width: 78%;
+  margin-right: 2%;
 }
 
 #network {
@@ -37,7 +43,7 @@ code {
   padding: 0 20px;
   border: solid 1px #CCC;
   border-radius: 5px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .hide {

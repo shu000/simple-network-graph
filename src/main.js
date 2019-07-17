@@ -23,12 +23,16 @@ class App {
     const dropArea = document.getElementById(DROP_AREA_ID);
     const droppable = new Droppable(dropArea);
 
-    droppable.onDrop().then((csv) => {
+    droppable.onDrop().then(csv => {
+      // show network graph area before than vis.js calc graph's initial position.
+      document.getElementById("network").classList.remove("hide");
+
       this.read(csv);
       this.showWordRanking()
       this.showNetworkGraph();
     });
   }
+
 
   showWordRanking() {
     const rankingArea = document.getElementById(RANKING_AREA_ID);
@@ -42,6 +46,7 @@ class App {
   showNetworkGraph() {
     const container = document.getElementById(NETWORK_AREA_ID);
     const network = NetworkFactory.create(container);
+
     this.addLoadingEvents(network); // TODO: wrap into NetworkFactory
 
     const data = {
@@ -73,7 +78,6 @@ class App {
     });
 
     network.on("stabilizationIterationsDone", () => {
-      document.getElementById("results").classList.remove("hide");
       document.getElementById("loading").classList.add("hide");
       network.off("startStabilizing");
       network.off("stabilizationProgress");
