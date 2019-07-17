@@ -37,10 +37,26 @@ class App {
   showWordRanking() {
     const rankingArea = document.getElementById(RANKING_AREA_ID);
     this.words.getAllOrderByOccurence().map(word => {
-      const p = document.createElement("p")
-      p.innerHTML = word.text;
-      rankingArea.appendChild(p);
+      this.addRankingItem(rankingArea, word.text, word.occurence);
     });
+  }
+
+  addRankingItem(area, text, occurence) {
+    const li = document.createElement("li");
+    const p_text = document.createElement("p");
+    const p_occ = document.createElement("p");
+
+    li.classList.add("ranking-li");
+
+    p_text.classList.add("ranking-text");
+    p_text.innerHTML = text;
+
+    p_occ.classList.add("ranking-occurence");
+    p_occ.innerHTML = occurence;
+
+    li.appendChild(p_occ);
+    li.appendChild(p_text);
+    area.appendChild(li);
   }
 
   showNetworkGraph() {
