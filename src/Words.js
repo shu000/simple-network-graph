@@ -44,7 +44,7 @@ class Words {
   calcVisValueBy(occurence) {
     const index = this.uniqueOccurences.findIndex(x => x === occurence);
     const percentage = ((index + 1) / this.uniqueOccurences.length) * 100;
-    return values.find(x => percentage <= x.percentage).value;
+    return valueRanks.find(x => percentage <= x.percentage).value;
   }
 
   /**
