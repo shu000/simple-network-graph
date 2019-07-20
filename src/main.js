@@ -106,16 +106,13 @@ class App {
 
     network.on("select", obj => {
       // when select a node, select also neighbors
+      const clickedEdges = this.edges.getAll().filter(edge => {
+        return obj.edges.includes(edge.edgeID);
+      });
+      const nodeIDs = clickedEdges.map(edge => edge.wordIDs).flat();
       network.selectNodes(nodeIDs);
     });
   }
-}
-
-neighborNodes(wordID) {
-  const clickedEdges = this.edges.getAll().filter(edge => {
-    return obj.edges.includes(edge.edgeID);
-  });
-  const nodeIDs = clickedEdges.map(edge => edge.wordIDs).flat();
 }
 
 const app = new App();
