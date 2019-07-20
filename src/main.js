@@ -11,6 +11,7 @@ const RANKING_AREA_ID = "ranking";
 class App {
 
   constructor() {
+    this.network;
     this.keywords;
     this.words;
     this.edges;
@@ -33,15 +34,14 @@ class App {
     });
   }
 
-
   showWordRanking() {
     const rankingArea = document.getElementById(RANKING_AREA_ID);
     this.words.getAllOrderByOccurence().map(word => {
-      this.addRankingItem(rankingArea, word.text, word.occurence);
+      this.addRankingItem(rankingArea, word.text, word.occurence, word.wordID);
     });
   }
 
-  addRankingItem(area, text, occurence) {
+  addRankingItem(area, text, occurence, id) {
     const li = document.createElement("li");
     const p_text = document.createElement("p");
     const p_occ = document.createElement("p");
@@ -54,6 +54,10 @@ class App {
     p_occ.classList.add("ranking-occurence");
     p_occ.innerHTML = occurence;
 
+    li.addEventListener("click", e => {
+      this.network.selectNodes([id]);
+    });
+
     li.appendChild(p_occ);
     li.appendChild(p_text);
     area.appendChild(li);
@@ -61,15 +65,15 @@ class App {
 
   showNetworkGraph() {
     const container = document.getElementById(NETWORK_AREA_ID);
-    const network = NetworkFactory.create(container);
+    this.network = NetworkFactory.create(container);
 
-    this.addLoadingEvents(network); // TODO: wrap into NetworkFactory
+    this.addLoadingEvents(this.network); // TODO: wrap into NetworkFactory
 
     const data = {
       nodes: new vis.DataSet(this.words.getAsVisNodes()),
       edges: new vis.DataSet(this.edges.getAsVisEdges())
     };
-    network.setData(data);
+    this.network.setData(data);
   }
 
   read(csv) {
@@ -102,13 +106,16 @@ class App {
 
     network.on("select", obj => {
       // when select a node, select also neighbors
-      const clickedEdges = this.edges.getAll().filter(edge => {
-        return obj.edges.includes(edge.edgeID);
-      });
-      const nodeIDs = clickedEdges.map(edge => edge.wordIDs).flat();
       network.selectNodes(nodeIDs);
     });
   }
+}
+
+neighborNodes(wordID) {
+  const clickedEdges = this.edges.getAll().filter(edge => {
+    return obj.edges.includes(edge.edgeID);
+  });
+  const nodeIDs = clickedEdges.map(edge => edge.wordIDs).flat();
 }
 
 const app = new App();

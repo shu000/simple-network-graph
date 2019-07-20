@@ -56,6 +56,23 @@ code {
   height: 20px;
   padding: 1px 0;
   font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.ranking-li:hover {
+  background-color: #BBDDFF;
+}
+
+.ranking-li:active {
+  background-color: #B9D9FF;
+}
+
+.ranking-li-header,
+.ranking-li-header:hover,
+.ranking-li-header:active {
+  cursor: default;
+  background-color: inherit;
 }
 
 .ranking-occurence {
