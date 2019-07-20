@@ -84,11 +84,11 @@ class App {
   }
 
   addLoadingEvents(network) {
-    network.on("startStabilizing", (obj) => {
+    network.on("startStabilizing", obj => {
       document.getElementById("loading").classList.remove("hide");
     });
 
-    network.on("stabilizationProgress", (obj) => {
+    network.on("stabilizationProgress", obj => {
       const percentage = obj.iterations / 10 + " %";
       document.getElementById("loading-text").innerHTML = percentage;
     });
@@ -98,6 +98,15 @@ class App {
       network.off("startStabilizing");
       network.off("stabilizationProgress");
       network.off("stabilizationIterationsDone");
+    });
+
+    network.on("select", obj => {
+      // when select a node, select also neighbors
+      const clickedEdges = this.edges.getAll().filter(edge => {
+        return obj.edges.includes(edge.edgeID);
+      });
+      const nodeIDs = clickedEdges.map(edge => edge.wordIDs).flat();
+      network.selectNodes(nodeIDs);
     });
   }
 }
