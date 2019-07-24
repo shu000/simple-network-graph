@@ -6,15 +6,15 @@ class Droppable {
    */
   constructor(area) {
     this.droppableArea = area;
-    
+
 		this.droppableArea.addEventListener("dragenter", cancelEvent);
 	  this.droppableArea.addEventListener("dragleave", cancelEvent);
 		this.droppableArea.addEventListener("dragover", cancelEvent);
 
-    window.addEventListener("drop", cancelEvemt);
-    window.addEventListener("dragenter", cancelEvemt);
-    window.addEventListener("dragleave", cancelEvemt);
-    window.addEventListener("dragover", cancelEvemt);
+    window.addEventListener("drop", cancelEvent);
+    window.addEventListener("dragenter", cancelEvent);
+    window.addEventListener("dragleave", cancelEvent);
+    window.addEventListener("dragover", cancelEvent);
   }
 
   /**
