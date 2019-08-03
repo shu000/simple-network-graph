@@ -34,7 +34,12 @@ class Droppable {
   			// TODO: 複数ファイルドロップ時のエラー処理
   			const file = e.dataTransfer.files[0];
 
-      	if (file.type !== "text/csv") reject(e);
+        const filetype = file.type
+        const exp = file.name.split(".").pop();
+        if (filetype !== "text/csv" && exp !== "csv") {
+          // file.type is empty on Windows(I don't know why), so check exp too.
+          reject(e);
+        }
 
         resolve(this.read(file));
       });
